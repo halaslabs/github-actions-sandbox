@@ -12,4 +12,4 @@ jobs:
   echo:
     runs-on: ubuntu-latest
     steps:
-      - run: echo The branch is ${{ inputs.branch }} 
+      - run: echo "The branch is ${{ inputs.branch }}"
