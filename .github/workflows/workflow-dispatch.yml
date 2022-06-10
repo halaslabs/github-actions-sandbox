@@ -1,0 +1,13 @@
+name: Workflow Dispatch
+
+on: workflow_dispatch
+  inputs:
+    branch:
+    required: false
+    type: string
+
+jobs:
+  echo:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo The branch is ${{ inputs.branch }} 
