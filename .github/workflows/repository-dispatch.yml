@@ -9,3 +9,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: echo "The branch is ${{ github.event.client_payload.branch }}"
+    outputs:
+      reconciled: "the-incoming-${{ github.event.client_payload.branch }}"
+  reuse:
+    needs:
+      - gather-input
+    uses: ./.github/workflows/reusable.yml
+      with:
+        incoming: ${{ needs.gather-input.outputs.reconciled }}
