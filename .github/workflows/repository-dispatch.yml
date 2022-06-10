@@ -15,5 +15,5 @@ jobs:
     needs:
       - gather-input
     uses: ./.github/workflows/reusable.yml
-      with:
-        incoming: ${{ needs.gather-input.outputs.reconciled }}
+    with:
+      incoming: ${{ needs.gather-input.outputs.reconciled }}
