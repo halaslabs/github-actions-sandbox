@@ -1,0 +1,11 @@
+name: Repository Dispatch
+
+on:
+  repository_dispatch:
+    types: [trigger]
+
+jobs:
+  gather-input:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "The branch is ${{ github.event.client_payload.branch }}"
