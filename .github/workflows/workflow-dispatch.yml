@@ -13,3 +13,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: echo "The branch is ${{ inputs.branch }}"
+    outputs:
+      reconciled: "the-incoming-${{ inputs.branch }}"
+  reuse:
+    needs:
+      - echo
+    uses: ./.github/workflows/reusable.yml
+    with:
+      incoming: ${{ needs.echo.outputs.reconciled }}
