@@ -3,8 +3,9 @@ name: Workflow Dispatch
 on: workflow_dispatch
   inputs:
     branch:
-    required: false
-    type: string
+      required: false
+      type: string
+      default: null
 
 jobs:
   echo:
