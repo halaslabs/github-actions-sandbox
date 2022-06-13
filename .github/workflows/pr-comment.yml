@@ -1,0 +1,30 @@
+name: PR Comment
+
+on:
+  issue_comment:
+    types: [ created ]
+
+jobs:
+  something:
+    if: github.event.issue.pull_request
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "foo" | tee output.log
+      - id: echo
+        run: echo "::set-output name=bar::`cat output.log`"
+      - uses: actions/github-script@v6
+        env:
+          comment: ${{ github.event.comment.body }}
+        with:
+          script: |
+            const comment = process.env.comment.replace('`', '\`');
+            github.rest.issues.createComment({
+              issue_number: ${{ github.event.issue.number }},
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `🤖
+              \`\`\`
+              ${{ steps.echo.outputs.bar }}
+              \`\`\`
+              ${comment}
+              `});
