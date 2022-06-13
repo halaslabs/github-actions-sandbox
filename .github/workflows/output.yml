@@ -1,0 +1,25 @@
+name: Workflow Output
+
+on: 
+  workflow_dispatch:
+
+jobs:
+  json:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - run: ./.github/scripts/output-json.sh | tee output.log
+        shell: bash
+      - id: cat
+        run: echo "::set-output name=log::`cat output.log`"
+    outputs:
+      string: ${{ fromJSON(steps.cat.outputs.log).string }}
+      int: ${{ fromJSON(steps.cat.outputs.log).int }}
+      array: ${{ toJSON(fromJSON(steps.cat.outputs.log).array) }}
+  echo:
+    runs-on: ubuntu-latest
+    needs: json
+    steps:
+      - run: echo '${{needs.json.outputs.string}}'
+      - run: echo '${{needs.json.outputs.int}}'
+      - run: echo '${{needs.json.outputs.array}}'
