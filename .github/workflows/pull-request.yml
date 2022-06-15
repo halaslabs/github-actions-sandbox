@@ -14,7 +14,9 @@ jobs:
         shell: bash
       - id: cat
         run: echo "::set-output name=log::(multiline doesn't work w/output)"
-      - run: echo "full=`cat output.log`" >> $GITHUB_ENV
+      - run: echo "FULL=<<EOF" >> $GITHUB_ENV
+      - run: cat output.log >> $GITHUB_ENV
+      - run: echo "EOF" >> $GITHUB_ENV
       - name: "Notify"
         uses: peter-evans/create-or-update-comment@v2
         with:
