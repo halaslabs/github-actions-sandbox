@@ -14,9 +14,10 @@ jobs:
         shell: bash
       - id: cat
         run: echo "::set-output name=log::(multiline doesn't work w/output)"
-      - run: echo "FULL=<<EOF" >> $GITHUB_ENV
-      - run: cat output.log >> $GITHUB_ENV
-      - run: echo "EOF" >> $GITHUB_ENV
+      - run: |
+        echo "FULL<<EOF" >> $GITHUB_ENV
+        cat output.log >> $GITHUB_ENV
+        echo "EOF" >> $GITHUB_ENV
       - name: "Notify"
         uses: peter-evans/create-or-update-comment@v2
         with:
@@ -30,7 +31,7 @@ jobs:
             <details><summary>Test</summary>
 
             ```
-            ${{ env.full }}
+            ${{ env.FULL }}
             ```
 
             </details>
