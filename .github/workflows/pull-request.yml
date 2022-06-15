@@ -13,7 +13,8 @@ jobs:
       - run: ./.github/scripts/output-multi.sh | tee output.log
         shell: bash
       - id: cat
-        run: echo "::set-output name=log::`cat output.log`"
+        run: echo "::set-output name=log::(multiline doesn't work w/output)"
+        run: echo "full=`cat output.log`" >> $GITHUB_ENV
       - name: "Notify"
         uses: peter-evans/create-or-update-comment@v2
         with:
@@ -25,9 +26,11 @@ jobs:
               
             ```
             <details><summary>Test</summary>
+
             ```
-            Test
+            ${{ env.full }}
             ```
+
             </details>
 
     outputs:
