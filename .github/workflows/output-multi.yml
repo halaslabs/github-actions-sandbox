@@ -1,0 +1,33 @@
+name: Workflow Output
+
+on: 
+  workflow_dispatch:
+
+jobs:
+  multi-line:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - run: ./.github/scripts/output-multi.sh | tee output.log
+        shell: bash
+      - run: |
+          echo "FULL<<EOF" >> $GITHUB_ENV
+          cat output.log >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
+      - name: "Notify"
+        uses: peter-evans/create-or-update-comment@v2
+        with:
+          issue-number: ${{ github.event.number }}
+          body: |
+            🤖 
+            ```
+            Test:
+              
+            ```
+            <details><summary>Test</summary>
+
+            ```
+            ${{ env.FULL }}
+            ```
+
+            </details>
