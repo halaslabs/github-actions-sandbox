@@ -2,7 +2,6 @@ boto3
 slack_sdk
 gitpython
 requests
-b2gpopulate
 ajenti
 django
 django-dojo
