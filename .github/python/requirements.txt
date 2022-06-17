@@ -1,1 +1,4 @@
 boto3
+slack_sdk
+gitpython
+requests
