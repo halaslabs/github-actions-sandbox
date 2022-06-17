@@ -17,7 +17,7 @@ jobs:
           python-version: '3.10'
           architecture: 'x64'
           cache: 'pip'
-        run: |
+      - run: |
           python --version
           python -c 'print("hello world")'
           python -m pip install --upgrade pip
