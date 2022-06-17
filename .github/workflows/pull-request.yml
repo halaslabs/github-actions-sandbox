@@ -22,5 +22,5 @@ jobs:
           python --version
           python -c 'print("hello world")'
           python -m pip install --upgrade pip
-          pip install -r boto3
+          pip install boto3
           pip list
