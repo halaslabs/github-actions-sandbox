@@ -4,4 +4,3 @@ gitpython
 requests
 ajenti
 django
-django-dojo
