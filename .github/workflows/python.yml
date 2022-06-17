@@ -1,7 +1,6 @@
 name: Python
 
 on:
-  pull_request:
   workflow_dispatch:
 
 jobs:
@@ -14,11 +13,12 @@ jobs:
         with:
           python-version: '3.10'
           architecture: 'x64'
+          cache: 'pip'
 
       - name: "deps"
         run: |
           python --version
           python -c 'print("hello world")'
           python -m pip install --upgrade pip
-          pip install boto3
+          pip install -r .github/python/requirements.txt
           pip list
