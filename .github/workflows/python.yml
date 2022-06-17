@@ -1,9 +1,6 @@
-name: Pull Request
-
-# This can be used to test PRs
+name: Python
 
 on:
-  pull_request:
   workflow_dispatch:
 
 jobs:
@@ -17,10 +14,11 @@ jobs:
           python-version: '3.10'
           architecture: 'x64'
           cache: 'pip'
-      - run: |
+
+      - name: "deps"
+        run: |
           python --version
           python -c 'print("hello world")'
           python -m pip install --upgrade pip
-          pip install wheel setuptools
           pip install -r .github/python/requirements.txt
           pip list
