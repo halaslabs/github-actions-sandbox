@@ -4,10 +4,23 @@ name: Pull Request
 
 on:
   pull_request:
+  workflow_dispatch:
 
 jobs:
-  multi-line:
+  python:
+    name: "python"
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - run: echo "no op"
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+          architecture: 'x64'
+
+      - name: "deps"
+        run: |
+          python --version
+          python -c 'print("hello world")'
+          python -m pip install --upgrade pip
+          pip install -r boto3
+          pip list
