@@ -3,4 +3,3 @@ slack_sdk
 gitpython
 requests
 ajenti
-django
