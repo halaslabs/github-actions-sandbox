@@ -6,3 +6,5 @@ echo " {line 3} "
 echo 
 echo
 echo "more output"
+
+printf "{%s} This should go to stderr.\n" "$(date)" >&2
