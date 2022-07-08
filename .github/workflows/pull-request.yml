@@ -6,8 +6,14 @@ on:
   pull_request:
 
 jobs:
-  multi-line:
+  pull-request:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - run: echo "no op"
+      - uses: actions/checkout@v3 
+      - run: git log -1
+      - run: cat README.md
+      - uses: actions/checkout@v3 
+        with:
+          ref: main
+      - run: git log -1
+      - run: cat README.md
