@@ -6,14 +6,23 @@ on:
   pull_request:
 
 jobs:
-  pull-request:
+
+  json:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3 
-      - run: git log -1
-      - run: cat README.md
-      - uses: actions/checkout@v3 
-        with:
-          ref: main
-      - run: git log -1
-      - run: cat README.md
+      - uses: actions/checkout@v3
+      - run: ./.github/scripts/output-json.sh | tee output.log
+        shell: bash
+      - id: cat
+        run: echo "::set-output name=log::`cat output.log`"
+    outputs:
+      matrix: ${{ toJSON(fromJSON(steps.cat.outputs.log).matrix) }}
+      targets: ${{ toJSON(fromJSON(steps.cat.outputs.log).targets) }}
+
+  matrix:
+    needs: json
+    runs-on: ${{ fromJSON(needs.json.outputs.targets)[matrix.target].os }}
+    strategy:
+      matrix: ${{fromJson(needs.json.outputs.matrix)}}
+    steps:
+      - run: echo '${{matrix.target}}'
